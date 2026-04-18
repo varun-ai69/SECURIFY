@@ -1,0 +1,108 @@
+.incidents-container {
+  padding: 1rem 0 4rem;
+  animation: slideFadeIn 0.4s ease-out;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-secondary);
+  background: var(--panel-bg);
+  border: 1px dashed var(--panel-border);
+  border-radius: 12px;
+  font-family: var(--font-mono);
+}
+
+.incident-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.incident-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--panel-border);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.incident-header.alert {
+  background: rgba(248, 113, 113, 0.1);
+  border-bottom-color: rgba(248, 113, 113, 0.2);
+  color: var(--status-alert);
+}
+
+.incident-header.safe {
+  background: rgba(52, 211, 153, 0.1);
+  border-bottom-color: rgba(52, 211, 153, 0.2);
+  color: var(--status-normal);
+}
+
+.incident-body {
+  padding: 1.5rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.incident-info {
+  flex: 1;
+}
+
+.incident-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.incident-meta {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.incident-explanation {
+  color: #d4d4d8;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.incident-features {
+  flex: 1;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid #222;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.incident-features-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.feature-pill {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: #111;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  border-left: 2px solid #fde047;
+}
+
+.feature-name { color: #d4d4d8; }
+.feature-val { color: #fde047; font-weight: 700; }

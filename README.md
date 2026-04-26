@@ -1,8 +1,6 @@
-````md
-# Multi-Cloud Intrusion Detection System
+# Multi-Cloud Intrusion Detection System (MVP)
 
-AI-powered real-time intrusion detection and prevention system for multi-cloud environments.  
-This project analyzes incoming traffic before it reaches servers, detects malicious behavior using Machine Learning, blocks suspicious requests, and generates explainable alerts.
+An AI-powered real-time intrusion detection and prevention system designed for multi-cloud environments. This project analyzes incoming network traffic before it reaches cloud servers, detects malicious behavior using machine learning, blocks suspicious requests, and generates explainable security alerts.
 
 ---
 
@@ -18,66 +16,69 @@ This project analyzes incoming traffic before it reaches servers, detects malici
 </p>
 
 ---
-
 ## Overview
 
 Modern cloud servers continuously receive thousands of requests. Among legitimate traffic, malicious requests such as DDoS floods, botnet communication, HTTP floods, and reconnaissance scans can hide easily.
 
 Most systems detect attacks only after damage begins.
 
-This MVP introduces an intelligent AI security layer that sits in front of servers and automatically inspects traffic in real time.
+This MVP introduces an intelligent security layer that sits in front of servers and automatically inspects traffic in real time.
+
+Every incoming request is analyzed by a trained machine learning model. If the request appears malicious, the system blocks it and explains why it was flagged.
 
 ---
 
-## Problem Statement
+## Problem We Solve
 
 Cloud environments often suffer from:
 
-- Delayed detection of attacks  
-- Manual log monitoring  
-- No centralized protection across multiple clouds  
-- Lack of explainable alerts  
-- Reactive rather than proactive security  
+* Delayed detection of attacks
+* Manual log monitoring
+* No centralized protection across multiple clouds
+* Lack of explainable alerts
+* Reactive rather than proactive security
 
-We solve this through:
+This project solves that by bringing:
 
-- Real-time intrusion detection  
-- Automated blocking  
-- Explainable AI alerts  
-- Multi-cloud ready architecture  
-
----
-
-## Features
-
-- Real-time traffic inspection  
-- AI-based attack classification  
-- Detects multiple cyber threats  
-- Blocks suspicious traffic before reaching server  
-- Explainable threat reasoning  
-- Multi-cloud dashboard ready  
-- FastAPI backend integration  
-- Live threat simulation UI  
+* Real-time detection
+* Automated blocking
+* Attack classification
+* Explainable AI alerts
+* Multi-cloud ready architecture
 
 ---
 
-## Attack Types Detected
+## Key Features
 
-Current MVP model detects:
+* Real-time intrusion detection
+* Detects multiple attack categories
+* Automated malicious request blocking
+* Explainable attack reasoning
+* Live monitoring dashboard
+* Multi-cloud ready design
+* FastAPI backend integration
+* Machine learning powered decisions
 
-- Normal Traffic  
-- HTTP Flood  
-- DDoS  
-- Botnet  
-- Port Scan  
+---
 
-Future scope:
+## Attack Types Currently Detected
 
-- Brute Force  
-- SYN Flood  
-- SQL Injection  
-- Data Exfiltration  
-- Insider Threats  
+The current MVP model detects:
+
+* Normal Traffic
+* HTTP Flood
+* DDoS
+* Botnet Activity
+* Port Scan
+
+Future expansion can include:
+
+* Brute Force Attacks
+* SYN Flood
+* SQL Injection
+* SSH Abuse
+* Data Exfiltration
+* Insider Threat Patterns
 
 ---
 
@@ -86,16 +87,16 @@ Future scope:
 ```text
 Incoming Request
       ↓
-Feature Extraction
+Traffic Feature Extraction
       ↓
 ML Model Prediction
       ↓
-Safe or Malicious?
+Normal or Attack?
    ↙         ↘
 Allow       Block
              ↓
-     Alert + Explanation
-````
+     Generate Alert + Reason
+```
 
 ---
 
@@ -105,107 +106,85 @@ Current MVP uses:
 
 * Random Forest Classifier
 
-Why Random Forest?
+Why Random Forest:
 
-* Strong performance on tabular network data
-* High classification accuracy
+* High accuracy on tabular traffic data
+* Strong performance on intrusion datasets
 * Feature importance support
-* Fast inference for real-time detection
+* Stable and fast for MVP deployment
 
 ---
 
-## Dataset
+## Dataset Used
 
-Model is trained on network intrusion traffic inspired by benchmark datasets like CICIDS2017.
+This MVP is trained on traffic-flow based intrusion detection data inspired by CICIDS2017 style network datasets.
 
-The system learns traffic behavior patterns using flow-based features instead of packet payload inspection.
+The model learns traffic behavior patterns using network flow features instead of packet payload inspection.
 
 ---
 
-## Input Features Used
+## Input Features Used by Model
 
-```text
-Destination Port
-Flow Duration
-Total Fwd Packets
-Total Backward Packets
-Flow Bytes/s
-Flow Packets/s
-Packet Length Mean
-Packet Length Std
-SYN Flag Count
-RST Flag Count
-ACK Flag Count
-Flow IAT Mean
-Idle Mean
-Active Mean
-Subflow Fwd Bytes
-Subflow Bwd Bytes
-and more...
-```
+The model currently uses the following behavioral features:
+
+* Destination Port
+* Flow Duration
+* Total Fwd Packets
+* Total Backward Packets
+* Total Length of Fwd Packets
+* Total Length of Bwd Packets
+* Flow Bytes/s
+* Flow Packets/s
+* Fwd Packets/s
+* Bwd Packets/s
+* Packet Length Mean
+* Packet Length Std
+* Average Packet Size
+* Min Packet Length
+* Max Packet Length
+* SYN Flag Count
+* RST Flag Count
+* PSH Flag Count
+* ACK Flag Count
+* Down/Up Ratio
+* Flow IAT Mean
+* Flow IAT Std
+* Idle Mean
+* Active Mean
+* Subflow Fwd Bytes
+* Subflow Bwd Bytes
 
 These features help detect:
 
-* Flood attacks
+* Volumetric floods
 * Reconnaissance scans
 * Suspicious timing patterns
 * TCP abuse behavior
-* Traffic imbalance anomalies
+* Asymmetric traffic flows
 
 ---
 
-## Backend API
+## Backend Stack
 
-### Run Backend
-
-```bash
-pip install fastapi uvicorn pandas scikit-learn joblib
-uvicorn main:app --reload
-```
-
----
-
-## API Endpoint
-
-### Simulate Threat
-
-```http
-POST /simulate_attack
-```
-
-### Sample Request
-
-```json
-{
-  "server": "AWS",
-  "attack_label": 3
-}
-```
-
-### Sample Response
-
-```json
-{
-  "server": "AWS",
-  "prediction": {
-    "attack_type": "DDoS",
-    "confidence_score": 98.7,
-    "explanation": "Massive distributed traffic flow attempting to overwhelm the server."
-  }
-}
-```
+* Python
+* FastAPI
+* Pandas
+* Scikit-learn
+* Joblib
+* CORS Middleware
 
 ---
 
 ## Frontend MVP
 
-Includes:
+Current UI supports:
 
-* Multi-cloud server cards
-* Live terminal logs
+* Multiple cloud server panels
 * Attack simulation buttons
-* Threat intelligence panel
+* Live log stream
+* Threat detection alerts
 * Confidence score display
+* Explanation panel
 * Recovery mode simulation
 
 ---
@@ -218,32 +197,91 @@ project/
 │   ├── main.py
 │   ├── rf_intrusion_model.pkl
 │   ├── label_encoder.pkl
+│   └── test_dataset_predictions.csv
 │
 │── frontend/
 │   ├── src/
-│   ├── components/
+│   └── components/
 │
 └── README.md
 ```
 
 ---
 
+## API Endpoints
+
+### Health Check
+
+```http
+GET /
+```
+
+Returns backend running status.
+
+### Simulate Attack
+
+```http
+POST /simulate_attack
+```
+
+### Example Request
+
+```json
+{
+  "server": "AWS",
+  "attack_label": 3
+}
+```
+
+### Example Response
+
+```json
+{
+  "server": "AWS",
+  "prediction": {
+    "predicted_label": 3,
+    "attack_type": "DDoS",
+    "confidence_score": 98.7,
+    "explanation": "Massive distributed traffic flow attempting to overwhelm the network stack."
+  }
+}
+```
+
+---
+
+## Installation
+
+### Backend
+
+```bash
+pip install fastapi uvicorn pandas scikit-learn joblib
+```
+
+Run server:
+
+```bash
+uvicorn main:app --reload
+```
+
+---
+
 ## Why This Project Matters
 
-Instead of reacting after incidents happen, this system enables:
+Instead of waiting for incidents and then reading logs manually, this system enables:
 
 * Detect before damage
 * Block before compromise
 * Explain before confusion
-* Scale across multiple clouds
+* Scale across clouds
 
 ---
 
 ## Future Roadmap
 
-* AWS / Azure / GCP native integrations
-* Kafka live traffic ingestion
-* Auto firewall rule creation
+* Real cloud log ingestion from AWS / Azure / GCP
+* Kafka / streaming traffic pipeline
+* Auto firewall rule generation
+* Threat intelligence integration
 * SHAP explainability engine
 * Zero-day anomaly detection
 * SIEM integrations
@@ -266,13 +304,10 @@ Completed:
 
 ## Vision
 
-Build an autonomous AI security agent that protects modern multi-cloud infrastructure through intelligent real-time threat detection and response.
+Build a unified AI security agent that protects modern multi-cloud infrastructure through autonomous real-time threat detection and response.
 
 ---
 
 ## Author
 
-Built as an MVP for Hackathon Innovation in AI + Cybersecurity + Cloud Security.
-
-```
-```
+Built as an MVP for hackathon innovation in AI + Cybersecurity + Cloud Security.
